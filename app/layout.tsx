@@ -2,9 +2,11 @@ import Sidebar from '@/components/Sidebar'
 import './globals.css'
 import type { Metadata } from 'next'
 import { Figtree } from 'next/font/google'
+import SubabaseProvider from '@/providers/SupabaseProvider'
+import UserProvider from '@/providers/UserProvider'
 
 const font = Figtree
-({ subsets: ['latin'] })
+  ({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Suna',
@@ -19,10 +21,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={font.className}>
-        <Sidebar>
-        {children}
-        </Sidebar>
-       </body>
+        <SubabaseProvider>
+          <UserProvider>
+            <Sidebar>
+              {children}
+            </Sidebar>
+          </UserProvider>
+        </SubabaseProvider>
+      </body>
     </html>
   )
 }
